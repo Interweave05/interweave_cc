@@ -56,7 +56,7 @@ export const navBarConfig: NavBarConfig = {
 
 // 个人资料卡片：修改头像、昵称、简介和社交链接。
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/demo-avatar.png", // 头像路径相对于 src 目录；以 '/' 开头时，相对于 public 目录
+	avatar: "assets/images/avatar.png", // 头像路径相对于 src 目录；以 '/' 开头时，相对于 public 目录
 	name: "Interweave", // 昵称，也会显示在页脚版权信息中
 	bio: "どきどきキラキラ", // 个人简介
 	links: [ // 社交链接列表，不需要的项目可以删除
