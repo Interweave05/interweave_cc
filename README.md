@@ -48,6 +48,7 @@ lang: ''
 - 文件名建议使用英文和短横线，标题可以使用中文。
 - `draft: true` 为草稿，只在本地开发模式显示，不会发布。
 - `lang` 留空时沿用网站默认语言。
+- 归档页支持按时间、分类和标签切换，默认按分类展示；使用文章顶部的 `category` 和 `tags` 自动分组，一篇文章可填写多个标签。
 - 文章可以直接放在 `posts` 下，也可以放进独立文件夹，例如 `posts/travel/index.md`，同时存放封面图片。
 - `image: './cover.jpg'` 表示图片与文章在同一目录；`image: '/images/cover.jpg'` 对应 `public/images/cover.jpg`。
 - 删除文章时，删除对应的 Markdown 文件即可；其专用文件夹和图片也可以一起删除。
