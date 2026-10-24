@@ -1,151 +1,101 @@
 <script lang="ts">
-import { onMount } from "svelte";
-
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
-import { getPostUrlBySlug } from "../utils/url-utils";
+import {
+	type ArchiveMode,
+	type ArchivePost,
+	groupArchivePosts,
+} from "../utils/archive-utils";
+import { getPostUrlBySlug, url } from "../utils/url-utils";
 
 export let tags: string[] = [];
 export let categories: string[] = [];
-export let sortedPosts: Post[] = [];
+export let sortedPosts: ArchivePost[] = [];
 
 const params = new URLSearchParams(window.location.search);
-tags = params.has("tag") ? params.getAll("tag") : [];
-categories = params.has("category") ? params.getAll("category") : [];
-const uncategorized = params.get("uncategorized");
+tags = params.getAll("tag");
+categories = params.getAll("category");
+const uncategorized = params.has("uncategorized");
 
-interface Post {
-	slug: string;
-	data: {
-		title: string;
-		tags: string[];
-		category?: string | null;
-		published: Date;
-	};
-}
+const modes: { value: ArchiveMode; label: string }[] = [
+	{ value: "year", label: "按时间" },
+	{ value: "category", label: "按分类" },
+	{ value: "tag", label: "按标签" },
+];
+let mode: ArchiveMode = tags.length > 0 ? "tag" : "category";
 
-interface Group {
-	year: number;
-	posts: Post[];
-}
-
-let groups: Group[] = [];
+// 沿用侧栏分类和标签链接的筛选条件，再按所选方式分组。
+$: filteredPosts = sortedPosts.filter((post) => {
+	if (tags.length > 0 && !post.data.tags.some((tag) => tags.includes(tag))) return false;
+	if (categories.length > 0 && !categories.includes(post.data.category ?? "")) return false;
+	if (uncategorized && post.data.category?.trim()) return false;
+	return true;
+});
+$: groups = groupArchivePosts(filteredPosts, mode, {
+	uncategorized: i18n(I18nKey.uncategorized),
+	untagged: i18n(I18nKey.noTags),
+});
 
 function formatDate(date: Date) {
-	const month = (date.getMonth() + 1).toString().padStart(2, "0");
-	const day = date.getDate().toString().padStart(2, "0");
-	return `${month}-${day}`;
+	const month = String(date.getMonth() + 1).padStart(2, "0");
+	const day = String(date.getDate()).padStart(2, "0");
+	return mode === "year" ? `${month}-${day}` : `${date.getFullYear()}-${month}-${day}`;
 }
-
-function formatTag(tagList: string[]) {
-	return tagList.map((t) => `#${t}`).join(" ");
-}
-
-onMount(async () => {
-	let filteredPosts: Post[] = sortedPosts;
-
-	if (tags.length > 0) {
-		filteredPosts = filteredPosts.filter(
-			(post) =>
-				Array.isArray(post.data.tags) &&
-				post.data.tags.some((tag) => tags.includes(tag)),
-		);
-	}
-
-	if (categories.length > 0) {
-		filteredPosts = filteredPosts.filter(
-			(post) => post.data.category && categories.includes(post.data.category),
-		);
-	}
-
-	if (uncategorized) {
-		filteredPosts = filteredPosts.filter((post) => !post.data.category);
-	}
-
-	const grouped = filteredPosts.reduce(
-		(acc, post) => {
-			const year = post.data.published.getFullYear();
-			if (!acc[year]) {
-				acc[year] = [];
-			}
-			acc[year].push(post);
-			return acc;
-		},
-		{} as Record<number, Post[]>,
-	);
-
-	const groupedPostsArray = Object.keys(grouped).map((yearStr) => ({
-		year: Number.parseInt(yearStr, 10),
-		posts: grouped[Number.parseInt(yearStr, 10)],
-	}));
-
-	groupedPostsArray.sort((a, b) => b.year - a.year);
-
-	groups = groupedPostsArray;
-});
 </script>
 
-<div class="card-base px-8 py-6">
-    {#each groups as group}
-        <div>
-            <div class="flex flex-row w-full items-center h-[3.75rem]">
-                <div class="w-[15%] md:w-[10%] transition text-2xl font-bold text-right text-75">
-                    {group.year}
-                </div>
-                <div class="w-[15%] md:w-[10%]">
-                    <div
-                            class="h-3 w-3 bg-none rounded-full outline outline-[var(--primary)] mx-auto
-                  -outline-offset-[2px] z-50 outline-3"
-                    ></div>
-                </div>
-                <div class="w-[70%] md:w-[80%] transition text-left text-50">
-                    {group.posts.length} {i18n(group.posts.length === 1 ? I18nKey.postCount : I18nKey.postsCount)}
-                </div>
-            </div>
-
-            {#each group.posts as post}
-                <a
-                        href={getPostUrlBySlug(post.slug)}
-                        aria-label={post.data.title}
-                        class="group btn-plain !block h-10 w-full rounded-lg hover:text-[initial]"
+<div class="card-base px-4 py-6 md:px-8">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <h1 class="text-2xl font-bold text-90">{i18n(I18nKey.archive)}</h1>
+        <div class="flex flex-wrap gap-1" role="group" aria-label="归档方式">
+            {#each modes as item}
+                <button
+                    type="button"
+                    class={`btn-regular rounded-lg px-3 py-2 text-sm font-medium ${mode === item.value ? "!bg-[var(--btn-regular-bg-active)] !text-[var(--primary)] ring-1 ring-inset ring-[var(--primary)]" : ""}`}
+                    aria-pressed={mode === item.value}
+                    on:click={() => mode = item.value}
                 >
-                    <div class="flex flex-row justify-start items-center h-full">
-                        <!-- date -->
-                        <div class="w-[15%] md:w-[10%] transition text-sm text-right text-50">
-                            {formatDate(post.data.published)}
-                        </div>
-
-                        <!-- dot and line -->
-                        <div class="w-[15%] md:w-[10%] relative dash-line h-full flex items-center">
-                            <div
-                                    class="transition-all mx-auto w-1 h-1 rounded group-hover:h-5
-                       bg-[oklch(0.5_0.05_var(--hue))] group-hover:bg-[var(--primary)]
-                       outline outline-4 z-50
-                       outline-[var(--card-bg)]
-                       group-hover:outline-[var(--btn-plain-bg-hover)]
-                       group-active:outline-[var(--btn-plain-bg-active)]"
-                            ></div>
-                        </div>
-
-                        <!-- post title -->
-                        <div
-                                class="w-[70%] md:max-w-[65%] md:w-[65%] text-left font-bold
-                     group-hover:translate-x-1 transition-all group-hover:text-[var(--primary)]
-                     text-75 pr-8 whitespace-nowrap overflow-ellipsis overflow-hidden"
-                        >
-                            {post.data.title}
-                        </div>
-
-                        <!-- tag list -->
-                        <div
-                                class="hidden md:block md:w-[15%] text-left text-sm transition
-                     whitespace-nowrap overflow-ellipsis overflow-hidden text-30"
-                        >
-                            {formatTag(post.data.tags)}
-                        </div>
-                    </div>
-                </a>
+                    {item.label}
+                </button>
             {/each}
         </div>
+    </div>
+
+    {#if tags.length > 0 || categories.length > 0 || uncategorized}
+        <div class="flex flex-wrap items-center gap-2 text-sm text-50 mb-5">
+            <span>筛选：{[...categories, ...tags.map((tag) => `#${tag}`), ...(uncategorized ? [i18n(I18nKey.uncategorized)] : [])].join("、")}</span>
+            <a class="link text-[var(--primary)]" href={url("/archive/")}>查看全部</a>
+        </div>
+    {/if}
+
+    {#each groups as group (group.key)}
+        <section class="mb-6 last:mb-0" aria-label={group.label}>
+            <div class="flex items-center gap-3 py-3 mb-2 border-b border-black/10 dark:border-white/10">
+                <h2 class="text-xl font-bold text-75 break-words min-w-0">{group.label}</h2>
+                <span class="text-sm text-50 shrink-0">
+                    {group.posts.length} {i18n(group.posts.length === 1 ? I18nKey.postCount : I18nKey.postsCount)}
+                </span>
+            </div>
+
+            {#each group.posts as post (post.slug)}
+                <a
+                    href={getPostUrlBySlug(post.slug)}
+                    aria-label={post.data.title}
+                    class="group btn-plain !flex gap-3 min-h-11 w-full rounded-lg py-2 px-2"
+                >
+                    <span class="text-xs md:text-sm text-50 shrink-0 w-20 md:w-24 text-left">
+                        {formatDate(post.data.published)}
+                    </span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)] shrink-0" aria-hidden="true"></span>
+                    <span class="flex-1 min-w-0 text-left font-bold text-75 truncate group-hover:text-[var(--primary)] transition">
+                        {post.data.title}
+                    </span>
+                    <span class="hidden md:block max-w-[25%] truncate text-sm text-30">
+                        {post.data.tags.map((tag) => `#${tag}`).join(" ")}
+                    </span>
+                </a>
+            {/each}
+        </section>
+    {:else}
+        <p class="text-50 py-6 text-center">暂无符合条件的文章。</p>
     {/each}
 </div>
