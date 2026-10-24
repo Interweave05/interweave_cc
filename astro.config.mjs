@@ -7,6 +7,7 @@ import swup from "@swup/astro";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import { defineConfig } from "astro/config";
+import { existsSync } from "node:fs";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import rehypeKatex from "rehype-katex";
@@ -25,9 +26,11 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 
 // https://astro.build/config
+if (existsSync(".env")) process.loadEnvFile(".env");
+
 export default defineConfig({
-	site: "https://fuwari.vercel.app/",
-	base: "/",
+	site: process.env.SITE_URL || "https://interweave05.github.io",
+	base: process.env.BASE_PATH ?? (process.env.NODE_ENV === "production" ? "/interweave_cc" : "/"),
 	trailingSlash: "always",
 	integrations: [
 		tailwind({
