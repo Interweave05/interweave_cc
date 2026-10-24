@@ -1,99 +1,118 @@
-# 🍥Fuwari  
-![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen) 
-![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue) 
-[![DeepWiki](https://img.shields.io/badge/DeepWiki-saicaca%2Ffuwari-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAyCAYAAAAnWDnqAAAAAXNSR0IArs4c6QAAA05JREFUaEPtmUtyEzEQhtWTQyQLHNak2AB7ZnyXZMEjXMGeK/AIi+QuHrMnbChYY7MIh8g01fJoopFb0uhhEqqcbWTp06/uv1saEDv4O3n3dV60RfP947Mm9/SQc0ICFQgzfc4CYZoTPAswgSJCCUJUnAAoRHOAUOcATwbmVLWdGoH//PB8mnKqScAhsD0kYP3j/Yt5LPQe2KvcXmGvRHcDnpxfL2zOYJ1mFwrryWTz0advv1Ut4CJgf5uhDuDj5eUcAUoahrdY/56ebRWeraTjMt/00Sh3UDtjgHtQNHwcRGOC98BJEAEymycmYcWwOprTgcB6VZ5JK5TAJ+fXGLBm3FDAmn6oPPjR4rKCAoJCal2eAiQp2x0vxTPB3ALO2CRkwmDy5WohzBDwSEFKRwPbknEggCPB/imwrycgxX2NzoMCHhPkDwqYMr9tRcP5qNrMZHkVnOjRMWwLCcr8ohBVb1OMjxLwGCvjTikrsBOiA6fNyCrm8V1rP93iVPpwaE+gO0SsWmPiXB+jikdf6SizrT5qKasx5j8ABbHpFTx+vFXp9EnYQmLx02h1QTTrl6eDqxLnGjporxl3NL3agEvXdT0WmEost648sQOYAeJS9Q7bfUVoMGnjo4AZdUMQku50McDcMWcBPvr0SzbTAFDfvJqwLzgxwATnCgnp4wDl6Aa+Ax283gghmj+vj7feE2KBBRMW3FzOpLOADl0Isb5587h/U4gGvkt5v60Z1VLG8BhYjbzRwyQZemwAd6cCR5/XFWLYZRIMpX39AR0tjaGGiGzLVyhse5C9RKC6ai42ppWPKiBagOvaYk8lO7DajerabOZP46Lby5wKjw1HCRx7p9sVMOWGzb/vA1hwiWc6jm3MvQDTogQkiqIhJV0nBQBTU+3okKCFDy9WwferkHjtxib7t3xIUQtHxnIwtx4mpg26/HfwVNVDb4oI9RHmx5WGelRVlrtiw43zboCLaxv46AZeB3IlTkwouebTr1y2NjSpHz68WNFjHvupy3q8TFn3Hos2IAk4Ju5dCo8B3wP7VPr/FGaKiG+T+v+TQqIrOqMTL1VdWV1DdmcbO8KXBz6esmYWYKPwDL5b5FA1a0hwapHiom0r/cKaoqr+27/XcrS5UwSMbQAAAABJRU5ErkJggg==)](https://deepwiki.com/saicaca/fuwari)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari?ref=badge_shield&issueType=license)
+# Interweave 的个人网站
 
-A static blog template built with [Astro](https://astro.build).
+基于 [Fuwari](https://github.com/saicaca/fuwari) 和 Astro，用 Markdown 写文章，通过 GitHub Actions 自动部署到 GitHub Pages。
 
-[**🖥️ Live Demo (Vercel)**](https://fuwari.vercel.app)
+- 网站：https://www.interweave.cc/
+- 仓库：https://github.com/Interweave05/interweave_cc
 
-![Preview Image](https://raw.githubusercontent.com/saicaca/resource/main/fuwari/home.png)
+## 环境与启动
 
-🌏 README in
-[**中文**](https://github.com/saicaca/fuwari/blob/main/docs/README.zh-CN.md) /
-[**日本語**](https://github.com/saicaca/fuwari/blob/main/docs/README.ja.md) /
-[**한국어**](https://github.com/saicaca/fuwari/blob/main/docs/README.ko.md) /
-[**Español**](https://github.com/saicaca/fuwari/blob/main/docs/README.es.md) /
-[**ไทย**](https://github.com/saicaca/fuwari/blob/main/docs/README.th.md) /
-[**Tiếng Việt**](https://github.com/saicaca/fuwari/blob/main/docs/README.vi.md) /
-[**Bahasa Indonesia**](https://github.com/saicaca/fuwari/blob/main/docs/README.id.md) (Provided by the community and may not always be up-to-date)
+使用 Node.js 24。项目的 `.npmrc` 和 `package.json` 会自动选用 pnpm 9.14.4。
 
-## ✨ Features
-
-- [x] Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
-- [x] Smooth animations and page transitions
-- [x] Light / dark mode
-- [x] Customizable theme colors & banner
-- [x] Responsive design
-- [x] Search functionality with [Pagefind](https://pagefind.app/)
-- [x] [Markdown extended features](https://github.com/saicaca/fuwari?tab=readme-ov-file#-markdown-extended-syntax)
-- [x] Table of contents
-- [x] RSS feed
-
-## 🚀 Getting Started
-
-1. Create your blog repository:
-    - [Generate a new repository](https://github.com/saicaca/fuwari/generate) from this template or fork this repository.
-    - Or run one of the following commands:
-       ```sh
-       npm create fuwari@latest
-       yarn create fuwari
-       pnpm create fuwari@latest
-       bun create fuwari@latest
-       deno run -A npm:create-fuwari@latest
-       ```
-2. To edit your blog locally, clone your repository, run `pnpm install` to install dependencies.
-    - Install [pnpm](https://pnpm.io) `npm install -g pnpm` if you haven't.
-3. Edit the config file `src/config.ts` to customize your blog.
-4. Run `pnpm new-post <filename>` to create a new post and edit it in `src/content/posts/`.
-5. Deploy your blog to Vercel, Netlify, GitHub Pages, etc. following [the guides](https://docs.astro.build/en/guides/deploy/). You need to edit the site configuration in `astro.config.mjs` before deployment.
-
-## 📝 Frontmatter of Posts
-
-```yaml
----
-title: My First Blog Post
-published: 2023-09-09
-description: This is the first post of my new Astro blog.
-image: ./cover.jpg
-tags: [Foo, Bar]
-category: Front-end
-draft: false
-lang: jp      # Set only if the post's language differs from the site's language in `config.ts`
----
+```powershell
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-## 🧩 Markdown Extended Syntax
+打开终端显示的本地地址，通常为 http://localhost:4321/。保存文件后会自动更新，按 Ctrl+C 停止预览。
 
-In addition to Astro's default support for [GitHub Flavored Markdown](https://github.github.com/gfm/), several extra Markdown features are included:
+## 写文章
 
-- Admonitions ([Preview and Usage](https://fuwari.vercel.app/posts/markdown-extended/#admonitions))
-- GitHub repository cards ([Preview and Usage](https://fuwari.vercel.app/posts/markdown-extended/#github-repository-cards))
-- Enhanced code blocks with Expressive Code ([Preview](https://fuwari.vercel.app/posts/expressive-code/) / [Docs](https://expressive-code.com/))
+在项目根目录运行：
 
-## ⚡ Commands
+```powershell
+pnpm new-post my-first-post
+```
 
-All commands are run from the root of the project, from a terminal:
+编辑生成的 `src/content/posts/my-first-post.md`：
 
-| Command                    | Action                                              |
-|:---------------------------|:----------------------------------------------------|
-| `pnpm install`             | Installs dependencies                               |
-| `pnpm dev`                 | Starts local dev server at `localhost:4321`         |
-| `pnpm build`               | Build your production site to `./dist/`             |
-| `pnpm preview`             | Preview your build locally, before deploying        |
-| `pnpm check`               | Run checks for errors in your code                  |
-| `pnpm format`              | Format your code using Biome                        |
-| `pnpm new-post <filename>` | Create a new post                                   |
-| `pnpm astro ...`           | Run CLI commands like `astro add`, `astro check`    |
-| `pnpm astro --help`        | Get help using the Astro CLI                        |
+```markdown
+---
+title: 我的第一篇文章
+published: 2026-10-24
+description: 文章简介
+image: ''
+tags: [生活, 随笔]
+category: 随笔
+draft: false
+lang: ''
+---
 
-## ✏️ Contributing
+这里开始写正文。
 
-Check out the [Contributing Guide](https://github.com/saicaca/fuwari/blob/main/CONTRIBUTING.md) for details on how to contribute to this project.
+## 一个小标题
 
-## 📄 License
+普通段落、**加粗文字**、列表都可以用 Markdown 编写。
+```
 
-This project is licensed under the MIT License.
+- 文件名建议使用英文和短横线，标题可以使用中文。
+- `draft: true` 为草稿，只在本地开发模式显示，不会发布。
+- `lang` 留空时沿用网站默认语言。
+- 文章可以直接放在 `posts` 下，也可以放进独立文件夹，例如 `posts/travel/index.md`，同时存放封面图片。
+- `image: './cover.jpg'` 表示图片与文章在同一目录；`image: '/images/cover.jpg'` 对应 `public/images/cover.jpg`。
+- 删除文章时，删除对应的 Markdown 文件即可；其专用文件夹和图片也可以一起删除。
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari?ref=badge_large&issueType=license)
+## 更新到 GitHub
+
+确认文章和修改内容后执行：
+
+```powershell
+git status
+git add .
+git commit -m "更新文章"
+git push origin main
+```
+
+在仓库 Actions 中等待 **Deploy to GitHub Pages** 成功，网站就会更新。构建产物和依赖会被 Git 自动忽略，只提交源码。
+
+## 常用文件
+
+| 路径 | 用途 |
+| --- | --- |
+| `src/config.ts` | 网站标题、语言、主题色、头像、简介和导航，已添加中文注释 |
+| `src/types/config.ts` | 配置与文章数据的 TypeScript 类型定义，已添加中文注释 |
+| `src/content/config.ts` | 文章元数据校验与默认值，已添加中文注释 |
+| `src/content/posts/` | 自己的文章和文章专用图片 |
+| `src/content/spec/about.md` | 关于页面 |
+| `src/assets/images/` | 由 Astro 处理的图片，目前头像和横幅仍使用这里的默认素材 |
+| `public/` | 原样发布的图片、网站图标等静态文件 |
+| `scripts/new-post.js` | 新建文章脚本 |
+| `.github/workflows/pages.yml` | GitHub Pages 的检查、构建、搜索索引生成和部署 |
+| `astro.config.mjs` | Astro 及正式网站地址配置 |
+| `frontmatter.json` | 可选的 VS Code Front Matter 写作扩展配置 |
+
+模板的示例文章已清理；关于页面中仍有原模板介绍和图片来源，可按需改写并保留仍使用素材的署名。
+
+## 检查与正式预览
+
+```powershell
+pnpm check
+pnpm build
+pnpm preview
+```
+
+- `pnpm check` 检查类型和组件。
+- `pnpm build` 生成网站和 Pagefind 搜索索引，输出到 `dist/`。
+- `pnpm preview` 预览上次构建结果，地址以终端输出为准。
+- 开发模式的搜索是模板提供的演示结果；测试真实搜索需要先构建再预览。
+- `dist/` 和 `.astro/` 均为自动生成的文件夹，需要时会重新生成。
+
+## 域名与部署配置
+
+GitHub 仓库 Settings → Pages → Source 使用 **GitHub Actions**，Custom domain 为 `www.interweave.cc`。
+部署工作流会从 GitHub Pages 设置自动读取正式域名和部署子路径，使用默认的 `GITHUB_TOKEN`，无需单独添加个人令牌。
+
+本地开发默认使用根路径 `/`；未覆盖配置时，正式构建使用 `https://interweave05.github.io/interweave_cc/`。
+如需在本地模拟自定义域名的构建，可复制 `.env.example` 为 `.env`，并设置：
+
+```dotenv
+SITE_URL=https://www.interweave.cc
+BASE_PATH=/
+```
+
+`.env` 不会提交到 Git；GitHub Actions 提供的环境变量优先于它。
+
+## 模板与许可
+
+Fuwari 模板的原始许可保留在 `LICENSE` 中，模板文档见 [Fuwari 官方仓库](https://github.com/saicaca/fuwari)。
+网站文章显示的许可协议在 `src/config.ts` 的 `licenseConfig` 中设置。
